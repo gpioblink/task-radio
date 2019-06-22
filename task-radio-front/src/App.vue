@@ -2,13 +2,13 @@
   <div id="app" class="home">
     <div id="input">
       <p>
-        調理時間: <input type="text" v-model="prepareTimeString">
+        調理時間: <input type="time" step="1" v-model="prepareTimeString">
       </p>
       <p>
-        食事時間: <input type="text" v-model="eatingTimeString">
+        食事時間: <input type="time" step="1" v-model="eatingTimeString">
       </p>
       <p>
-        片付け時間:<input type="text" v-model="washingTimeString">
+        片付け時間:<input type="time" step="1" v-model="washingTimeString">
       </p>
       <p>
         <button type="button" name="button">最終決定</button>
@@ -45,10 +45,10 @@ export default {
       speechSynthesis.speak(uttr);
     },
     setTimers() {
-      this.playMusic('https://webapi.aitalk.jp/webapi/v2/ttsget.php?username=spajam2019&password=LTMd8Ep8&speaker_name=nozomi&ext=mp3&text=%E4%BB%8A%E6%97%A5%E3%81%AF%E3%81%84%E3%81%84%E5%A4%A9%E6%B0%97%E3%81%A7%E3%81%99%E3%81%AD%E3%80%82&aaa=.mp3');
-      setTimeout(this.speak("ごはんを炊こう！",1000));
-      setTimeout(this.speak("ごはんができたよ",5000));
-      setTimeout(this.speak("おいしかったねー",10000));
+      //SPAJAMのAPIは後回し: this.playMusic('https://webapi.aitalk.jp/webapi/v2/ttsget.php?username=spajam2019&password=LTMd8Ep8&speaker_name=nozomi&ext=mp3&text=%E4%BB%8A%E6%97%A5%E3%81%AF%E3%81%84%E3%81%84%E5%A4%A9%E6%B0%97%E3%81%A7%E3%81%99%E3%81%AD%E3%80%82&aaa=.mp3');
+      setTimeout(this.speak ,1000, "ごはんを炊こう！");
+      setTimeout(this.speak ,5000, "ごはんができたよ");
+      setTimeout(this.speak ,10000, "おいしかったねー");
     },
     playMusic(sound) {
       if(sound) {
