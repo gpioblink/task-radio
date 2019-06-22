@@ -65,9 +65,9 @@ jobs:
           working_directory: task-radio-front/
 
       - run:
-        name: list branch
-        command: ls -la dist/$CIRCLE_BRANCH
-        working_directory: task-radio-front/
+          name: list branch
+          command: ls -la dist/$CIRCLE_BRANCH
+          working_directory: task-radio-front/
 
     # Firebaseにデプロイ
       - run: 
