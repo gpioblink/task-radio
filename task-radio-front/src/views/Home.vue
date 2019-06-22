@@ -3,16 +3,19 @@
     <div id="input">
       <p>
         調理時間: <input type="text" v-model="prepareTimeString">
+        <br>
         <button type="button" >決定</button>
         <pre>{{prepareTimeString}}</pre>
       </p>
       <p>
         食事時間: <input type="text" v-model="eatingTimeString">
+        <br>
         <button type="button">決定</button>
         <pre>{{eatingTimeString}}</pre>
       </p>
       <p>
         片付け時間:<input type="text" v-model="washingTimeString">
+        <br>
         <button type="button">決定</button>
         <pre>{{washingTimeString}}</pre>
       </p>
@@ -42,13 +45,18 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class Home extends Vue {}
 </script>
 <style>
+
 div.home{
 	margin:0% 0% 0% 0%;
 	padding:0% 0% 0% 0%;
 	border:0%;
+  background-image: url("background.jpg");
 }
 button{
+  left: 25%;
+  right: 25%;
 	border-style: dotted;
+  background-color: aliceblue;
 	padding: 0% 0% 0% 0%;
 }
 p{
