@@ -50,14 +50,24 @@ div.home{
 	margin:0% 0% 0% 0%;
 	padding:0% 0% 0% 0%;
 	border:0%;
-  background-image: url("background.jpg");
+  /*background-image: url("background.jpg");*/
 }
 button{
   left: 25%;
   right: 25%;
 	border-style: dotted;
   background-color: aliceblue;
+  color: midnightblue;
 	padding: 0% 0% 0% 0%;
+}
+button:hover {
+    background-color: midnightblue;
+    /* 文字色を白色に指定 */
+
+    color: aliceblue;
+}
+input{
+  border-radius: 1vh;
 }
 p{
   color: #009999;
