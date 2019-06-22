@@ -28,6 +28,11 @@ jobs:
           command: yarn add --dev firebase-tools
           working_directory: task-radio-front/
 
+      # - run:
+      #     name: Install zait
+      #     command: yarn add --dev now
+      #     working_directory: task-radio-front/
+
       # ビルド
       - run:
           name: Build
@@ -47,17 +52,27 @@ jobs:
           key: v1-dependencies-{{ checksum "task-radio-front/yarn.lock" }}
           working_directory: task-radio-front/
 
+      # - run:
+      #     name: Echo branch
+      #     command: echo $CIRCLE_BRANCH
+      #     working_directory: task-radio-front/
+
       # # ユニットテスト
       # - run:
       #     name: UnitTest
       #     command: yarn run test:unit
       #     working_directory: task-radio-front/
 
-    # デプロイファイルの移動
-      - run:
-          name: Move Deploy Files
-          command: mv dist dist_tmp && mkdir -p "dist/$CIRCLE_BRANCH" && mv dist_tmp/* dist/$CIRCLE_BRANCH
-          working_directory: task-radio-front/
+    # # デプロイファイルの移動
+    #   - run:
+    #       name: Move Deploy Files
+    #       command: mv dist dist_tmp && mkdir -p "dist/$CIRCLE_BRANCH" && mv dist_tmp/* dist/$CIRCLE_BRANCH
+    #       working_directory: task-radio-front/
+
+      # - run:
+      #     name: list branch
+      #     command: ls -la dist/$CIRCLE_BRANCH
+      #     working_directory: task-radio-front/
 
     # Firebaseにデプロイ
       - run: 
