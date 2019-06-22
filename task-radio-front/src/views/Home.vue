@@ -50,7 +50,6 @@ div.home{
 	margin:0% 0% 0% 0%;
 	padding:0% 0% 0% 0%;
 	border:0%;
-  /*background-image: url("background.jpg");*/
 }
 button{
   left: 25%;
