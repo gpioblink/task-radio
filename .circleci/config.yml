@@ -10,11 +10,12 @@ jobs:
       - checkout # プロジェクトに追加したGitHubリポジトリをworking_directoryにcloneしてcheckout
 
       # キャッシュがある場合はキャッシュから依存関係を復元
-      # - restore_cache:
-      #     # 復元するキャッシュのkey
-      #     keys:
-      #       - v1-dependencies-{{ checksum "yarn.lock" }}
-      #       - v1-dependencies-
+      - restore_cache:
+          # 復元するキャッシュのkey
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+          working_directory: task-radio-front/
 
       # 依存関係のインストール
       - run:
@@ -52,6 +53,12 @@ jobs:
       #     name: UnitTest
       #     command: yarn run test:unit
       #     working_directory: task-radio-front/
+
+    # デプロイファイルの移動
+      - run:
+          name: Move Deploy Files
+          command: mv dist dist_tmp && mkdir -p "dist/$CIRCLE_BRANCH" && mv dist_tmp/* dist/$CIRCLE_BRANCH
+          working_directory: task-radio-front/
 
     # Firebaseにデプロイ
       - run: 
