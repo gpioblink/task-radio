@@ -63,9 +63,9 @@ export default {
       const prepareTime = Number(this.prepareTimeMin*60+this.prepareTimeSec)*1000;
       const eatingTime = Number(this.eatingTimeMin*60+this.eatingTimeSec)*1000; 
       const washingTime = Number(this.washingTimeMin*60+this.washingTimeSec)*1000;
-      setTimeout(this.speak , prepareTime, "ごはんを炊こう！");
-      setTimeout(this.speak , eatingTime, "ごはんができたよ");
-      setTimeout(this.speak , washingTime, "おいしかったねー");
+      setTimeout(this.speak , prepareTime, "ごはんを作ろう！");
+      setTimeout(this.speak , eatingTime, "ごはんができたね！");
+      setTimeout(this.speak , washingTime, "おいしかったねー！さあ、お片付けの時間だよ");
     },
     setCountdownTimers() {
 
