@@ -161,6 +161,7 @@ p.wasabi{
 }
 input{
 	height: 100%;
+	width: 20%;
 }
 input:hover{
 	height: 150%;
