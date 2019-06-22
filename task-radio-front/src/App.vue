@@ -2,16 +2,16 @@
   <div id="app" class="home">
     <div id="input">
       <p>
-        調理時間: <input type="text" v-model="prepareTimeString">
+        調理時間: <input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeMin"><input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeSec">
       </p>
       <p>
-        食事時間: <input type="text" v-model="eatingTimeString">
+        食事時間: <input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeMin"><input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeSec">
       </p>
       <p>
-        片付け時間:<input type="text" v-model="washingTimeString">
+        片付け時間: <input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeMin"><input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeSec">
       </p>
       <p>
-        <button type="button" name="button">最終決定</button>
+        <button type="button" name="button" v-on:click="setTimers">最終決定</button>
       </p>
     </div>
   </div>
@@ -24,12 +24,23 @@ export default {
   name: 'notify-page',
   data() {
     return {
-      prepareTimeString: '',
-      eatingTimeString: '',
-      washingTimeString: ''
+      prepareTimeMin: '',
+      prepareTimeSec: '',
+      eatingTimeMin: '',
+      eatingTimeSec: '',
+      washingTimeMin: '',
+      washingTimeSec: ''
     };
   },
   methods: {
+    validate() { 
+      this.prepareTimeMin = this.prepareTimeMin.replace(/\D/g, '');
+      this.prepareTimeSec = this.prepareTimeMin.replace(/\D/g, '');
+      this.eatingTimeMin = this.prepareTimeMin.replace(/\D/g, '');
+      this.eatingTimeSec = this.prepareTimeMin.replace(/\D/g, '');
+      this.washingTimeMin = this.prepareTimeMin.replace(/\D/g, '');
+      this.washingTimeSec = this.prepareTimeMin.replace(/\D/g, '');
+    }, 
     speak(text) {
       const uttr = new SpeechSynthesisUtterance(text);
       console.log(text);
@@ -45,10 +56,13 @@ export default {
       speechSynthesis.speak(uttr);
     },
     setTimers() {
-      this.playMusic('https://webapi.aitalk.jp/webapi/v2/ttsget.php?username=spajam2019&password=LTMd8Ep8&speaker_name=nozomi&ext=mp3&text=%E4%BB%8A%E6%97%A5%E3%81%AF%E3%81%84%E3%81%84%E5%A4%A9%E6%B0%97%E3%81%A7%E3%81%99%E3%81%AD%E3%80%82&aaa=.mp3');
-      setTimeout(this.speak("ごはんを炊こう！",1000));
-      setTimeout(this.speak("ごはんができたよ",5000));
-      setTimeout(this.speak("おいしかったねー",10000));
+      //SPAJAMのAPIは後回し: this.playMusic('https://webapi.aitalk.jp/webapi/v2/ttsget.php?username=spajam2019&password=LTMd8Ep8&speaker_name=nozomi&ext=mp3&text=%E4%BB%8A%E6%97%A5%E3%81%AF%E3%81%84%E3%81%84%E5%A4%A9%E6%B0%97%E3%81%A7%E3%81%99%E3%81%AD%E3%80%82&aaa=.mp3');
+      console.log(this.prepareTimeString);
+      console.log(this.eatingTimeString);
+      console.log(this.washingTimeString);
+      setTimeout(this.speak ,1000, "ごはんを炊こう！");
+      setTimeout(this.speak ,5000, "ごはんができたよ");
+      setTimeout(this.speak ,10000, "おいしかったねー");
     },
     playMusic(sound) {
       if(sound) {
@@ -58,7 +72,6 @@ export default {
     }
   },
   created() {
-    this.setTimers();
   }
 }
 </script>
