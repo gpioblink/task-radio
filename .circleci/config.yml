@@ -10,11 +10,11 @@ jobs:
       - checkout # プロジェクトに追加したGitHubリポジトリをworking_directoryにcloneしてcheckout
 
       # キャッシュがある場合はキャッシュから依存関係を復元
-      - restore_cache:
-          # 復元するキャッシュのkey
-          keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
-            - v1-dependencies-
+      # - restore_cache:
+      #     # 復元するキャッシュのkey
+      #     keys:
+      #       - v1-dependencies-{{ checksum "yarn.lock" }}
+      #       - v1-dependencies-
 
       # 依存関係のインストール
       - run:
