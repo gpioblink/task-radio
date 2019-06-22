@@ -1,23 +1,20 @@
 <template>
   <div class="home">
-    <div id="input">
+    <div class="input">
       <p>
-        調理時間: <input type="text" v-model="prepareTimeString">
-        <button type="button" >決定</button>
+        調理時間: <input type="time" step="1" v-model="prepareTimeString">
+        <button type="button">決定</button>
         <pre>{{prepareTimeString}}</pre>
       </p>
       <p>
-        食事時間: <input type="text" v-model="eatingTimeString">
+        食事時間: <input type="time" step="1" v-model="eatingTimeString">
         <button type="button">決定</button>
         <pre>{{eatingTimeString}}</pre>
       </p>
       <p>
-        片付け時間:<input type="text" v-model="washingTimeString">
+        片付け時間:<input type="time" step="1" v-model="washingTimeString">
         <button type="button">決定</button>
         <pre>{{washingTimeString}}</pre>
-      </p>
-      <p>
-        <button type="button" name="button">最終決定</button>
       </p>
     </div>
   </div>
@@ -35,8 +32,11 @@ import { Component, Vue } from 'vue-property-decorator';
     return {
       prepareTimeString: '',
       eatingTimeString: '',
-      washingTimeString: ''
+      washingTimeString: '',
     }
+  },
+  methods: {
+
   }
 })
 export default class Home extends Vue {}
