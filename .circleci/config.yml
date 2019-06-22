@@ -47,6 +47,11 @@ jobs:
           key: v1-dependencies-{{ checksum "task-radio-front/yarn.lock" }}
           working_directory: task-radio-front/
 
+      - run:
+          name: Echo branch
+          command: echo $CIRCLE_BRANCH
+          working_directory: task-radio-front/
+
       # # ユニットテスト
       # - run:
       #     name: UnitTest
@@ -58,6 +63,11 @@ jobs:
           name: Move Deploy Files
           command: mv dist dist_tmp && mkdir -p "dist/$CIRCLE_BRANCH" && mv dist_tmp/* dist/$CIRCLE_BRANCH
           working_directory: task-radio-front/
+
+      - run:
+        name: list branch
+        command: ls -la dist/$CIRCLE_BRANCH
+        working_directory: task-radio-front/
 
     # Firebaseにデプロイ
       - run: 
