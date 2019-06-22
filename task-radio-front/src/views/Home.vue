@@ -2,13 +2,13 @@
   <div class="home">
     <div id="input">
       <p>
-        調理時間: <input type="text" v-model="prepareTimeString">
+        調理時間:<br> <input type="text" v-model="prepareTimeString">
         <br>
         <button type="button" >決定</button>
         <pre>{{prepareTimeString}}</pre>
       </p>
       <p>
-        食事時間: <input type="text" v-model="eatingTimeString">
+        食事時間:<br> <input type="text" v-model="eatingTimeString">
         <br>
         <button type="button">決定</button>
         <pre>{{eatingTimeString}}</pre>

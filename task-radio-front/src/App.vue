@@ -26,7 +26,7 @@
   min-height: 100%;
 }
 #nav {
-  padding: 30px;
+  padding: 30px;/*プリン食べたい*/
 }
 
 #nav a {
