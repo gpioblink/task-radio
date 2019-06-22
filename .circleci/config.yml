@@ -13,7 +13,7 @@ jobs:
       - restore_cache:
           # 復元するキャッシュのkey
           keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-{{ checksum "task-radio-front/yarn.lock" }}
             - v1-dependencies-
 
       # 依存関係のインストール
@@ -27,6 +27,11 @@ jobs:
           name: Install Firebase-tools
           command: yarn add --dev firebase-tools
           working_directory: task-radio-front/
+
+      # - run:
+      #     name: Install zait
+      #     command: yarn add --dev now
+      #     working_directory: task-radio-front/
 
       # ビルド
       - run:
@@ -44,14 +49,30 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "task-radio-front/yarn.lock" }}
           working_directory: task-radio-front/
 
-      # ユニットテスト
-      - run:
-          name: UnitTest
-          command: yarn run test:unit
-          working_directory: task-radio-front/
+      # - run:
+      #     name: Echo branch
+      #     command: echo $CIRCLE_BRANCH
+      #     working_directory: task-radio-front/
+
+      # # ユニットテスト
+      # - run:
+      #     name: UnitTest
+      #     command: yarn run test:unit
+      #     working_directory: task-radio-front/
+
+    # # デプロイファイルの移動
+    #   - run:
+    #       name: Move Deploy Files
+    #       command: mv dist dist_tmp && mkdir -p "dist/$CIRCLE_BRANCH" && mv dist_tmp/* dist/$CIRCLE_BRANCH
+    #       working_directory: task-radio-front/
+
+      # - run:
+      #     name: list branch
+      #     command: ls -la dist/$CIRCLE_BRANCH
+      #     working_directory: task-radio-front/
 
     # Firebaseにデプロイ
       - run: 
