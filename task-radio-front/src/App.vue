@@ -17,6 +17,8 @@
   color: #2c3e50;
   background-image: url("background.jpg");
   background-size: cover;
+  min-width: 100%;
+  min-height: 100%;
 }
 #nav {
   padding: 30px;
