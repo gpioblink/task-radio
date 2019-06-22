@@ -35,11 +35,11 @@ export default {
   methods: {
     validate() { 
       this.prepareTimeMin = this.prepareTimeMin.replace(/\D/g, '');
-      this.prepareTimeSec = this.prepareTimeMin.replace(/\D/g, '');
-      this.eatingTimeMin = this.prepareTimeMin.replace(/\D/g, '');
-      this.eatingTimeSec = this.prepareTimeMin.replace(/\D/g, '');
-      this.washingTimeMin = this.prepareTimeMin.replace(/\D/g, '');
-      this.washingTimeSec = this.prepareTimeMin.replace(/\D/g, '');
+      this.prepareTimeSec = this.prepareTimeSec.replace(/\D/g, '');
+      this.eatingTimeMin = this.eatingTimeMin.replace(/\D/g, '');
+      this.eatingTimeSec = this.eatingTimeSec.replace(/\D/g, '');
+      this.washingTimeMin = this.washingTimeMin.replace(/\D/g, '');
+      this.washingTimeSec = this.washingTimeSec.replace(/\D/g, '');
     }, 
     speak(text) {
       const uttr = new SpeechSynthesisUtterance(text);
@@ -57,12 +57,18 @@ export default {
     },
     setTimers() {
       //SPAJAMのAPIは後回し: this.playMusic('https://webapi.aitalk.jp/webapi/v2/ttsget.php?username=spajam2019&password=LTMd8Ep8&speaker_name=nozomi&ext=mp3&text=%E4%BB%8A%E6%97%A5%E3%81%AF%E3%81%84%E3%81%84%E5%A4%A9%E6%B0%97%E3%81%A7%E3%81%99%E3%81%AD%E3%80%82&aaa=.mp3');
-      console.log(this.prepareTimeString);
-      console.log(this.eatingTimeString);
-      console.log(this.washingTimeString);
-      setTimeout(this.speak ,1000, "ごはんを炊こう！");
-      setTimeout(this.speak ,5000, "ごはんができたよ");
-      setTimeout(this.speak ,10000, "おいしかったねー");
+      this.setVoiceTimers();
+    },
+    setVoiceTimers() {
+      const prepareTime = Number(this.prepareTimeMin*60+this.prepareTimeSec)*1000;
+      const eatingTime = Number(this.eatingTimeMin*60+this.eatingTimeSec)*1000; 
+      const washingTime = Number(this.washingTimeMin*60+this.washingTimeSec)*1000;
+      setTimeout(this.speak , prepareTime, "ごはんを炊こう！");
+      setTimeout(this.speak , eatingTime, "ごはんができたよ");
+      setTimeout(this.speak , washingTime, "おいしかったねー");
+    },
+    setCountdownTimers() {
+
     },
     playMusic(sound) {
       if(sound) {
