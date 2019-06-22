@@ -13,9 +13,8 @@ jobs:
       - restore_cache:
           # 復元するキャッシュのkey
           keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-{{ checksum "task-radio-front/yarn.lock" }}
             - v1-dependencies-
-          working_directory: task-radio-front/
 
       # 依存関係のインストール
       - run:
@@ -45,7 +44,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "task-radio-front/yarn.lock" }}
           working_directory: task-radio-front/
 
       # # ユニットテスト
