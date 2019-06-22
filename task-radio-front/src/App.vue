@@ -16,6 +16,7 @@
   text-align: center;
   color: #2c3e50;
   background-image: url("background.jpg");
+  background-size: cover;
 }
 #nav {
   padding: 30px;
