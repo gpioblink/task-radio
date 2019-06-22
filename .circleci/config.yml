@@ -1,0 +1,60 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:8.11.0 # nodeのバージョンは開発環境に合わせる
+
+    working_directory: ~/repo # 作業フォルダ
+
+    steps:
+      - checkout # プロジェクトに追加したGitHubリポジトリをworking_directoryにcloneしてcheckout
+
+      # キャッシュがある場合はキャッシュから依存関係を復元
+      - restore_cache:
+          # 復元するキャッシュのkey
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+
+      # 依存関係のインストール
+      - run:
+          name: Install dependencies # CircleCI上で表示される処理名(任意)
+          command: yarn install # 処理コマンド
+          working_directory: task-radio-front/
+
+      # Firebase-toolsのインストール
+      - run:
+          name: Install Firebase-tools
+          command: yarn add --dev firebase-tools
+          working_directory: task-radio-front/
+
+      # ビルド
+      - run:
+          name: Build
+          command: yarn build
+          working_directory: task-radio-front/
+
+      # ビルドの確認
+      - run:
+          name: Check dist
+          command: ls -la dist
+          working_directory: task-radio-front/
+
+      # キャッシュの保存
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          working_directory: task-radio-front/
+
+      # ユニットテスト
+      - run:
+          name: UnitTest
+          command: yarn run test:unit
+          working_directory: task-radio-front/
+
+    # Firebaseにデプロイ
+      - run: 
+          name: Deploy to Firebase hosting
+          command: yarn run firebase deploy --project "$FIREBASE_PROJECT_ID" --token "$FIREBASE_DEPLOY_TOKEN"
+          working_directory: task-radio-front/
