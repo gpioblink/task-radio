@@ -19,7 +19,10 @@
 
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-
+import PongSound from '@/assets/pong.mp3';
+import EatingSound from '@/assets/eating.mp3';
+import PrepareSound from '@/assets/prepare.mp3';
+import WashingSound from '@/assets/washing.mp3';
 export default {
   name: 'notify-page',
   data() {
@@ -29,7 +32,8 @@ export default {
       eatingTimeMin: '',
       eatingTimeSec: '',
       washingTimeMin: '',
-      washingTimeSec: ''
+      washingTimeSec: '',
+      bgm: new Audio()
     };
   },
   methods: {
@@ -41,7 +45,7 @@ export default {
       this.washingTimeMin = this.washingTimeMin.replace(/\D/g, '');
       this.washingTimeSec = this.washingTimeSec.replace(/\D/g, '');
     }, 
-    speak(text) {
+    speak(text,sound) {
       const uttr = new SpeechSynthesisUtterance(text);
       console.log(text);
       //「日本人の声質」のvoiceオブジェクトを取得
@@ -53,7 +57,10 @@ export default {
       if(voice){
         uttr.voice = voice;
       }
+      this.pauseBGM();
+      this.playNewTaskSE();
       speechSynthesis.speak(uttr);
+      setTimeout(this.changeBGM,2000,sound);
     },
     setTimers() {
       //SPAJAMのAPIは後回し: this.playMusic('https://webapi.aitalk.jp/webapi/v2/ttsget.php?username=spajam2019&password=LTMd8Ep8&speaker_name=nozomi&ext=mp3&text=%E4%BB%8A%E6%97%A5%E3%81%AF%E3%81%84%E3%81%84%E5%A4%A9%E6%B0%97%E3%81%A7%E3%81%99%E3%81%AD%E3%80%82&aaa=.mp3');
@@ -63,18 +70,34 @@ export default {
       const prepareTime = Number(this.prepareTimeMin*60+this.prepareTimeSec)*1000;
       const eatingTime = Number(this.eatingTimeMin*60+this.eatingTimeSec)*1000; 
       const washingTime = Number(this.washingTimeMin*60+this.washingTimeSec)*1000;
-      setTimeout(this.speak , prepareTime, "ごはんを作ろう！");
-      setTimeout(this.speak , eatingTime, "ごはんができたね！");
-      setTimeout(this.speak , washingTime, "おいしかったねー！さあ、お片付けの時間だよ");
+      setTimeout(this.speak , 0, "ごはんを作ろう！", PrepareSound);
+      setTimeout(this.speak , prepareTime, "ごはんができたね！", EatingSound);
+      setTimeout(this.speak , prepareTime+eatingTime, "おいしかったねー！さあ、お片付けの時間だよ", WashingSound);
+      setTimeout(this.speak , prepareTime+eatingTime+washingTime, "片付け、上手にできたね！みんな、おつかれ様！！", "");
     },
     setCountdownTimers() {
 
     },
     playMusic(sound) {
       if(sound) {
-        var audio = new Audio(sound);
+        const audio = new Audio(sound);
         audio.play();
       }
+    },
+    playNewTaskSE() {
+      const audio = new Audio(PongSound);
+      audio.play();
+    },
+    changeBGM(sound) {
+      this.bgm.pause();
+      this.bgm.loop = true;
+      this.bgm.currentTime = 0;
+      this.bgm.src = sound;
+      this.bgm.volume = 0.2;
+      this.bgm.play();
+    },
+    pauseBGM(sound) {
+      this.bgm.pause();
     }
   },
   created() {
