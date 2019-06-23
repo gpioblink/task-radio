@@ -1,15 +1,24 @@
 <template>
-
-	<div id="app" class="home">
-		<h1 id=title>たすくらぢお</h1>
-		<div id="input">
-			<p class=wasabi>
+  <div id="app" class="home">
+    <h1 id=title>たすくらぢお</h1>
+    <div id="remain">全体の残り時間: {{remainTime}}</div>
+    <div id="remain">次の工程までの残り時間: {{partRemainTime}}</div>
+    <div id="input">
+      <p class=wasabi>
 				<div class=index id=index1>調理時間</div><div class=index id=box1><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeSec"><p class=second>秒</p></div>
 			</p>
-			<p class=wasabi>
+      <p class=wasabi>
+        または 
+        <select v-model="select">
+          <option v-for="(recipe,key) in recipes" v-bind:value="recipe" v-bind:key="key">
+              {{recipe.name}}
+          </option>
+        </select>
+      </p>
+      <p class=wasabi>
 				<div class=index id=index2>食事時間</div><div class=index id=box2><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeSec"><p class=second>秒</p></div>
 			</p>
-			<p class=wasabi>
+      <p class=wasabi>
 				<div class=index id=index3>片付け時間</div><div class=index id=box3><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeSec"><p class=second>秒</p></div>
 			</p>
 			<p class=wasabi>
