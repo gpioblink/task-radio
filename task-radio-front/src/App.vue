@@ -294,18 +294,21 @@ div#index15{
 	bottom: 55%;
 	left:50%;
 	border-radius: 0% 5vh 5vh 0%;
+	font-size: 7vh;
 }
 
 div#index2{
 	background: rgb(200, 200, 80);
 	top: 55%;
 	bottom: 35%;
+	font-size: 7vh;
 }
 
 div#index3{
 	background: rgb(200, 200, 80);
 	top: 75%;
 	bottom: 15%;
+	font-size: 7vh;
 }
 p.wasabi{
 	width: 50%;
@@ -335,13 +338,13 @@ input.s{
 p.minute{
 	position: absolute;
 	top: -100%;
-	left: 40%;
+	left: 33%;
 	right: 50%;
 }
 p.second{
 	position: absolute;
 	top: -100%;
-	left:80%;
+	left:73%;
 	right: 10%;
 }
 div#box1{
