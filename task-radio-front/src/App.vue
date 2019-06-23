@@ -192,23 +192,129 @@ export default {
 
 
 <style>
+@font-face {
+font-family: 'sh';
+src: url('sh.ttf');
+font-weight: normal;
+font-style: normal;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+	position: absolute;
+	top: 0%;
+	bottom: 0%;
+	left: 0%;
+	right: 0%;
+	font-family: 'sh', Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+/*	background-image: url("background.jpg");*/
+	background-size: cover;
+	background-color: rgb(255, 214, 167);
+	min-width: 100%;
+	min-height: 100%;
 }
 #nav {
-  padding: 30px;
+	pudding: 30px;/*プリン食べたい*/
 }
 
 #nav a {
-  font-weight: bold;
-  color: #2c3e50;
+	font-weight: bold;
+	color: #2c3e50;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+	color: #42b983;
+}
+h1{
+	position: absolute;
+	margin: 0%;
+	padding: 3%;
+	border: 0%;
+	top: 0%;
+	left: 0%;
+	right: 0%;
+	background: linear-gradient(darkorange,rgb(255, 214, 167));
+}
+div.index{
+	position: absolute;
+	border: 10%;
+	left: 10%;
+	right: 10%;
+	font-size:8vh;
+	border-color: rgb(255, 128, 128);
+	border-style:dotted;
+	border-radius: 5vh;
+	background: rgb(255, 255, 185);
+	font-family: 'sh';
+}
+div#index1{
+	top: 15%;
+	bottom: 75%;
+}
+
+div#index2{
+	top: 45%;
+	bottom: 45%;
+}
+
+div#index3{
+	top: 75%;
+	bottom: 15%;
+}
+#box1{
+
+}
+p.wasabi{
+	width: 50%;
+	align: center;
+	background: aqua;
+}
+input{
+	height: 100%;
+	width: 20%;
+}
+input:hover{
+	background: orange;
+	transition: background 0.3s linear 0;
+}
+input.m{
+	position: absolute;
+	left: 20%;
+	right: 60%;
+	border-radius: 5vh;
+}
+input.s{
+	position: absolute;
+	left: 50%;
+	right: 30%;
+	border-radius: 5vh;
+}
+p.minute{
+	position: absolute;
+	left: 40%;
+	right: 50%;
+}
+p.second{
+	position: absolute;
+	left:70%;
+	right: 20%;
+}
+#box1{
+	top: 25%;
+	bottom: 65%;
+}
+#box2{
+	top: 55%;
+	bottom: 35%;
+}
+#box3{
+	top: 85%;
+	bottom: 5%;
+}
+button#saischu{
+	position: absolute;
+	top: 90%;
 }
 </style>
