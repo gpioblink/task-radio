@@ -3,7 +3,12 @@
     <div id="input">
       <p>
         調理時間: <input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeMin"><input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeSec">
-      </p>
+        または 
+        <select v-model="select">
+          <option v-for="(recipe,key) in recipes" v-bind:value="recipe" v-bind:key="key">
+              {{recipe.name}}
+          </option>
+        </select>
       <p>
         食事時間: <input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeMin"><input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeSec">
       </p>
@@ -33,7 +38,13 @@ export default {
       eatingTimeSec: '',
       washingTimeMin: '',
       washingTimeSec: '',
-      bgm: new Audio()
+      select: { name: "未選択", processes: [] },
+      bgm: new Audio(),
+      recipes: [
+        { name: "未選択", processes: [] },
+        { name: "カレー", processes: [ { time: 1200, text: "野菜を切りましょう!"}, {time: 1200, text: "肉・野菜を炒めましょう!"}, {time: 3000, text: "じっくり煮込みましょう！"},{time: 2000, text: "ルーを入れて仕上げです！！"}] },
+        { name: "いりたまご", processes: [ { time: 100, text: "卵と牛乳とこしょうをまぜよう"}, { time: 180, text: "フライパンを温め、バターを落とそう"}, { time: 120, text: "生地を入れて混ぜてできあがり！！"}] },
+      ]
     };
   },
   methods: {
@@ -64,13 +75,33 @@ export default {
     },
     setTimers() {
       //SPAJAMのAPIは後回し: this.playMusic('https://webapi.aitalk.jp/webapi/v2/ttsget.php?username=spajam2019&password=LTMd8Ep8&speaker_name=nozomi&ext=mp3&text=%E4%BB%8A%E6%97%A5%E3%81%AF%E3%81%84%E3%81%84%E5%A4%A9%E6%B0%97%E3%81%A7%E3%81%99%E3%81%AD%E3%80%82&aaa=.mp3');
-      this.setVoiceTimers();
+      //this.setVoiceTimers();
+      console.log(this.select);
+      if(this.select == undefined || this.select.name == "未選択") this.setVoiceTimers();
+      else this.setSequenceTimers(this.select);
     },
     setVoiceTimers() {
       const prepareTime = Number(this.prepareTimeMin*60+this.prepareTimeSec)*1000;
       const eatingTime = Number(this.eatingTimeMin*60+this.eatingTimeSec)*1000; 
       const washingTime = Number(this.washingTimeMin*60+this.washingTimeSec)*1000;
       setTimeout(this.speak , 0, "ごはんを作ろう！", PrepareSound);
+      setTimeout(this.speak , prepareTime, "ごはんができたね！", EatingSound);
+      setTimeout(this.speak , prepareTime+eatingTime, "おいしかったねー！さあ、お片付けの時間だよ", WashingSound);
+      setTimeout(this.speak , prepareTime+eatingTime+washingTime, "片付け、上手にできたね！みんな、おつかれ様！！", "");
+    },
+    setSequenceTimers(recipe) {
+      let t = 0;
+      if(recipe){
+        for(let process of recipe.processes){
+          console.log(process);
+          console.log(process.time);
+          setTimeout(this.speak, t, process.text, PrepareSound);
+          t += Number(process.time)*1000;
+        }
+      }
+      const prepareTime = t;
+      const eatingTime = Number(this.eatingTimeMin*60+this.eatingTimeSec)*1000; 
+      const washingTime = Number(this.washingTimeMin*60+this.washingTimeSec)*1000;
       setTimeout(this.speak , prepareTime, "ごはんができたね！", EatingSound);
       setTimeout(this.speak , prepareTime+eatingTime, "おいしかったねー！さあ、お片付けの時間だよ", WashingSound);
       setTimeout(this.speak , prepareTime+eatingTime+washingTime, "片付け、上手にできたね！みんな、おつかれ様！！", "");
