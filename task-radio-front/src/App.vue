@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="home">
     <div id="remain">全体の残り時間: {{remainTime}}</div>
+    <div id="remain">次の工程までの残り時間: {{stepRemainTime}}</div>
     <div id="input">
       <p>
         調理時間: <input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeMin"><input @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeSec">
