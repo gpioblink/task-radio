@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="home">
     <h1 id=title>たすくらぢお</h1>
-    <div id="remain1">全体の残り時間: {{remainTime}}</div>
-    <div id="remain2">次の工程までの残り時間: {{partRemainTime}}</div>
+    <div id="remain1">全体の残り時間: <br>{{remainTime}}</div>
+    <div id="remain2">次の工程までの残り時間: <br>{{partRemainTime}}</div>
     <div id="input">
       <p class=wasabi>
 				<div class=index id=index1>調理時間</div><div class=index id=box1><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeSec"><p class=second>秒</p></div>
@@ -338,13 +338,13 @@ input.s{
 p.minute{
 	position: absolute;
 	top: -100%;
-	left: 33%;
+	left: 20%;
 	right: 50%;
 }
 p.second{
 	position: absolute;
 	top: -100%;
-	left:73%;
+	left:60%;
 	right: 10%;
 }
 div#box1{
