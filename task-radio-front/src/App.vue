@@ -36,6 +36,12 @@ export default {
       washingTimeMin: '',
       washingTimeSec: '',
       select: { name: "未選択", processes: [] },
+      remainTime: '00:00',
+      remainTimeNum: 0,
+      currentTimerId: 0,
+      partRemainTime: '00:00',
+      partRemainTimeNum: 0,
+      partCurrentTimerId: 0,
       bgm: new Audio(),
       recipes: [
         { name: "未選択", processes: [] },
@@ -69,6 +75,10 @@ export default {
       this.playNewTaskSE();
       speechSynthesis.speak(uttr);
       setTimeout(this.changeBGM,2000,sound);
+      return new Promise(function(resolve) {
+        // 非同期処理の完了コールバックとしてresolve関数を渡す
+        setTimeout(resolve);
+      });
     },
     setTimers() {
       //SPAJAMのAPIは後回し: this.playMusic('https://webapi.aitalk.jp/webapi/v2/ttsget.php?username=spajam2019&password=LTMd8Ep8&speaker_name=nozomi&ext=mp3&text=%E4%BB%8A%E6%97%A5%E3%81%AF%E3%81%84%E3%81%84%E5%A4%A9%E6%B0%97%E3%81%A7%E3%81%99%E3%81%AD%E3%80%82&aaa=.mp3');
@@ -82,9 +92,14 @@ export default {
       const eatingTime = Number(this.eatingTimeMin*60+this.eatingTimeSec)*1000; 
       const washingTime = Number(this.washingTimeMin*60+this.washingTimeSec)*1000;
       setTimeout(this.speak , 0, "ごはんを作ろう！", PrepareSound);
+      setTimeout(this.setCountdownTimerPart , 0, prepareTime);
       setTimeout(this.speak , prepareTime, "ごはんができたね！", EatingSound);
+      setTimeout(this.setCountdownTimerPart , prepareTime, eatingTime);
       setTimeout(this.speak , prepareTime+eatingTime, "おいしかったねー！さあ、お片付けの時間だよ", WashingSound);
+      setTimeout(this.setCountdownTimerPart ,prepareTime+eatingTime, washingTime);
+      // setTimeout(this.partRemainTime , 設定するまでにかかってる時間, 設定するタイマーの時間);
       setTimeout(this.speak , prepareTime+eatingTime+washingTime, "片付け、上手にできたね！みんな、おつかれ様！！", "");
+      this.setCountdownTimer(prepareTime+eatingTime+washingTime);
     },
     setSequenceTimers(recipe) {
       let t = 0;
@@ -93,18 +108,54 @@ export default {
           console.log(process);
           console.log(process.time);
           setTimeout(this.speak, t, process.text, PrepareSound);
+          setTimeout(this.setCountdownTimerPart, t, Number(process.time)*1000);
+          this.setCountdownTimer(t);
           t += Number(process.time)*1000;
         }
       }
       const prepareTime = t;
       const eatingTime = Number(this.eatingTimeMin*60+this.eatingTimeSec)*1000; 
       const washingTime = Number(this.washingTimeMin*60+this.washingTimeSec)*1000;
-      setTimeout(this.speak , prepareTime, "ごはんができたね！", EatingSound);
-      setTimeout(this.speak , prepareTime+eatingTime, "おいしかったねー！さあ、お片付けの時間だよ", WashingSound);
-      setTimeout(this.speak , prepareTime+eatingTime+washingTime, "片付け、上手にできたね！みんな、おつかれ様！！", "");
+      setTimeout(this.setCountdownTimerPart , prepareTime, "ごはんができたね！", EatingSound);
+      this.setCountdownTimer(prepareTime);
+      setTimeout(this.setCountdownTimerPart , prepareTime+eatingTime, "おいしかったねー！さあ、お片付けの時間だよ", WashingSound);
+      this.setCountdownTimer(prepareTime+eatingTime);
+      setTimeout(this.setCountdownTimerPart , prepareTime+eatingTime+washingTime, "片付け、上手にできたね！みんな、おつかれ様！！", "");
+      this.setCountdownTimer(prepareTime+eatingTime+washingTime);
     },
-    setCountdownTimers() {
-
+    setCountdownTimer(milisec) {
+      clearInterval(this.currentTimerId);
+      const sec = milisec / 1000;
+      this.remainTimeNum = sec;
+      this.currentTimerId = setInterval(this.countDown,1000);
+    },
+    countDown() {
+      if(this.remainTimeNum > 0) {
+        this.remainTimeNum -= 1;
+        this.remainTime = this.calcTimeNum2TimeString(this.remainTimeNum);
+      }else{
+        clearInterval(this.currentTimerId);
+      }
+    },
+    setCountdownTimerPart(milisec) {
+      console.log("次までの時間", milisec);
+      clearInterval(this.partCurrentTimerId);
+      const sec = milisec / 1000;
+      this.partRemainTimeNum = sec;
+      this.partCurrentTimerId = setInterval(this.countDownPart,1000);
+    },
+    countDownPart() {
+      if(this.partRemainTimeNum > 0) {
+        this.partRemainTimeNum -= 1;
+        this.partRemainTime = this.calcTimeNum2TimeString(this.partRemainTimeNum);
+      }else{
+        clearInterval(this.partCurrentTimerId);
+      }
+    },
+    calcTimeNum2TimeString(timeNum) {
+      const min = parseInt(String(timeNum / 60));
+      const sec = parseInt(String(timeNum % 60));
+      return `${("00" + String( min )).substr(-2)}:${("00" + String( sec )).substr(-2)}`;
     },
     playMusic(sound) {
       if(sound) {
@@ -207,6 +258,14 @@ div#index1{
 	top: 15%;
 	bottom: 75%;
 	right:50%;
+	border-radius: 5vh 0% 0% 5vh;
+}
+
+div#index15{
+	top: 15%;
+	bottom: 75%;
+	left:50%;
+	border-radius: 0% 5vh 5vh 0%;
 }
 
 div#index2{
@@ -255,15 +314,23 @@ p.second{
 	left:80%;
 	right: 10%;
 }
-#box1{
+div#box1{
 	top: 25%;
 	bottom: 65%;
+	right:50%;
+	border-radius: 5vh 0% 0% 5vh;
 }
-#box2{
+div#box15{
+	top: 25%;
+	bottom: 65%;
+	left:50%;
+	border-radius: 0% 5vh 5vh 0%;
+}
+div#box2{
 	top: 55%;
 	bottom: 35%;
 }
-#box3{
+div#box3{
 	top: 85%;
 	bottom: 5%;
 }
