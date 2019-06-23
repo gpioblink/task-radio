@@ -4,16 +4,16 @@
 		<h1 id=title>たすくらぢお</h1>
 		<div id="input">
 			<p class=wasabi>
-				<div class=index id=index1>調理時間</div><div class=index id=box1><input class=m id=input1 @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeMin">分<input class=s id=input1 @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeSec">秒</div>
+				<div class=index id=index1>調理時間</div><div class=index id=box1><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeSec"><p class=second>秒</p></div>
 			</p>
 			<p class=wasabi>
-				<div class=index id=index2>食事時間</div><div class=index id=box2><input class=m id=input2 @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeMin">分<input class=s id=input2 @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeSec">秒</div>
+				<div class=index id=index2>食事時間</div><div class=index id=box2><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeSec"><p class=second>秒</p></div>
 			</p>
 			<p class=wasabi>
-				<div class=index id=index3>片付け時間</div><div class=index id=box3><input class=m id=input3 @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeMin">分<input class=s id=input3 @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeSec">秒</div>
+				<div class=index id=index3>片付け時間</div><div class=index id=box3><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeSec"><p class=second>秒</p></div>
 			</p>
 			<p class=wasabi>
-				<button type="button" name="button" v-on:click="setTimers">最終決定</button>
+				<button id="saischu" type="button" name="button" v-on:click="setTimers">最終決定</button>
 			</p>
 		</div>
 	</div>
@@ -220,17 +220,30 @@ input{
 	width: 20%;
 }
 input:hover{
-	height: 150%;
-	transition: height 0.3s linear 0;
+	background: orange;
+	transition: background 0.3s linear 0;
 }
 input.m{
-	position: relative;
-	left: 0%;
+	position: absolute;
+	left: 20%;
+	right: 60%;
 	border-radius: 5vh;
 }
 input.s{
-	position: relative;
+	position: absolute;
+	left: 50%;
+	right: 30%;
 	border-radius: 5vh;
+}
+p.minute{
+	position: absolute;
+	left: 40%;
+	right: 50%;
+}
+p.second{
+	position: absolute;
+	left:70%;
+	right: 20%;
 }
 #box1{
 	top: 25%;
@@ -243,5 +256,9 @@ input.s{
 #box3{
 	top: 85%;
 	bottom: 5%;
+}
+button#saischu{
+	position: absolute;
+	top: 90%;
 }
 </style>
