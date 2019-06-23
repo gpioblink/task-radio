@@ -272,6 +272,8 @@ div#index1{
 	bottom: 55%;
 	right:50%;
 	border-radius: 5vh 0% 0% 5vh;
+	font-size:4vh;
+	padding:2%;
 }
 div#remain1{
 	position: absolute;
@@ -338,13 +340,13 @@ input.s{
 p.minute{
 	position: absolute;
 	top: -100%;
-	left: 20%;
+	left: 33%;
 	right: 50%;
 }
 p.second{
 	position: absolute;
 	top: -100%;
-	left:60%;
+	left:73%;
 	right: 10%;
 }
 div#box1{
