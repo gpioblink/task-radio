@@ -13,7 +13,7 @@
 				<div class=index id=index3>片付け時間</div><div class=index id=box3><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="washingTimeSec"><p class=second>秒</p></div>
 			</p>
 			<p class=wasabi>
-				<button id="saischu" type="button" name="button" v-on:click="setTimers">最終決定</button>
+				<div class=buttonn><button id="saischu" type="button" name="button" v-on:click="setTimers">最終決定</button></div>
 			</p>
 		</div>
 	</div>
@@ -189,13 +189,24 @@ div.index{
 	font-size:8vh;
 	border-color: rgb(255, 128, 128);
 	border-style:dotted;
-	border-radius: 5vh;
+	border-radius: 8vh;
 	background: rgb(255, 255, 185);
 	font-family: 'sh';
+}
+div.buttonn{
+	position: absolute;
+	border:0%;
+	top:95%;
+	bottom:0%;
+	left:10%;
+	right:10%;
+	border-style:dotted;
+	border-radius: 8vh;
 }
 div#index1{
 	top: 15%;
 	bottom: 75%;
+	right:50%;
 }
 
 div#index2{
@@ -207,9 +218,6 @@ div#index3{
 	top: 75%;
 	bottom: 15%;
 }
-#box1{
-
-}
 p.wasabi{
 	width: 50%;
 	align: center;
@@ -218,6 +226,8 @@ p.wasabi{
 input{
 	height: 100%;
 	width: 20%;
+	border-style:none;
+	border-radius: 5vh;
 }
 input:hover{
 	background: orange;
@@ -225,25 +235,25 @@ input:hover{
 }
 input.m{
 	position: absolute;
-	left: 20%;
-	right: 60%;
-	border-radius: 5vh;
+	left: 10%;
+	right: 70%;
 }
 input.s{
 	position: absolute;
 	left: 50%;
 	right: 30%;
-	border-radius: 5vh;
 }
 p.minute{
 	position: absolute;
+	top: -100%;
 	left: 40%;
 	right: 50%;
 }
 p.second{
 	position: absolute;
-	left:70%;
-	right: 20%;
+	top: -100%;
+	left:80%;
+	right: 10%;
 }
 #box1{
 	top: 25%;
@@ -259,6 +269,12 @@ p.second{
 }
 button#saischu{
 	position: absolute;
-	top: 90%;
+	top:0%;
+	bottom:0%;
+	left:0%;
+	right:0%;
+	background:rgba(0,0,0,0);
+	border-style:none;
+	/*transform: rotatez(10deg);*/
 }
 </style>
