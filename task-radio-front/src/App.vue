@@ -267,6 +267,7 @@ div.buttonn{
 	font-family: 'sh', Helvetica, Arial, sans-serif;
 }
 div#index1{
+	background: rgb(200, 200, 80);
 	top: 35%;
 	bottom: 55%;
 	right:50%;
@@ -277,16 +278,17 @@ div#remain1{
 	top:20%;
 	bottom:65%;
 	left:10%;
-	font-size: 5vh;
+	font-size: 2vh;
 }
 div#remain2{
 	position: absolute;
 	top:20%;
 	bottom:65%;
 	right:10%;
-	font-size: 5vh;
+	font-size: 2vh;
 }
 div#index15{
+	background: rgb(200, 200, 80);
 	position: absolute;
 	top: 35%;
 	bottom: 55%;
@@ -295,11 +297,13 @@ div#index15{
 }
 
 div#index2{
+	background: rgb(200, 200, 80);
 	top: 55%;
 	bottom: 35%;
 }
 
 div#index3{
+	background: rgb(200, 200, 80);
 	top: 75%;
 	bottom: 15%;
 }
@@ -362,6 +366,7 @@ div#box3{
 	bottom: 5%;
 }
 button#saischu{
+	background: rgb(200, 100, 80);
 	position: absolute;
 	top:0%;
 	bottom:0%;
