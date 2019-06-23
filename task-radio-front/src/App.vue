@@ -1,19 +1,21 @@
 <template>
   <div id="app" class="home">
     <h1 id=title>たすくらぢお</h1>
-    <div id="remain">全体の残り時間: {{remainTime}}</div>
-    <div id="remain">次の工程までの残り時間: {{partRemainTime}}</div>
+    <div id="remain1">全体の残り時間: {{remainTime}}</div>
+    <div id="remain2">次の工程までの残り時間: {{partRemainTime}}</div>
     <div id="input">
       <p class=wasabi>
 				<div class=index id=index1>調理時間</div><div class=index id=box1><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeSec"><p class=second>秒</p></div>
 			</p>
       <p class=wasabi>
-        または 
+        <div class=index id=index15>または </div>
+		<div class=index id=box15>
         <select v-model="select">
           <option v-for="(recipe,key) in recipes" v-bind:value="recipe" v-bind:key="key">
               {{recipe.name}}
           </option>
         </select>
+		</div>
       </p>
       <p class=wasabi>
 				<div class=index id=index2>食事時間</div><div class=index id=box2><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="eatingTimeSec"><p class=second>秒</p></div>
@@ -262,24 +264,39 @@ div.buttonn{
 	right:10%;
 	border-style:dotted;
 	border-radius: 8vh;
+	font-family: 'sh', Helvetica, Arial, sans-serif;
 }
 div#index1{
-	top: 15%;
-	bottom: 75%;
+	top: 35%;
+	bottom: 55%;
 	right:50%;
 	border-radius: 5vh 0% 0% 5vh;
 }
-
+div#remain1{
+	position: absolute;
+	top:20%;
+	bottom:65%;
+	left:10%;
+	font-size: 5vh;
+}
+div#remain2{
+	position: absolute;
+	top:20%;
+	bottom:65%;
+	right:10%;
+	font-size: 5vh;
+}
 div#index15{
-	top: 15%;
-	bottom: 75%;
+	position: absolute;
+	top: 35%;
+	bottom: 55%;
 	left:50%;
 	border-radius: 0% 5vh 5vh 0%;
 }
 
 div#index2{
-	top: 45%;
-	bottom: 45%;
+	top: 55%;
+	bottom: 35%;
 }
 
 div#index3{
@@ -324,20 +341,21 @@ p.second{
 	right: 10%;
 }
 div#box1{
-	top: 25%;
-	bottom: 65%;
+	top: 45%;
+	bottom: 45%;
 	right:50%;
 	border-radius: 5vh 0% 0% 5vh;
 }
 div#box15{
-	top: 25%;
-	bottom: 65%;
+	position: absolute;
+	top: 45%;
+	bottom: 45%;
 	left:50%;
 	border-radius: 0% 5vh 5vh 0%;
 }
 div#box2{
-	top: 55%;
-	bottom: 35%;
+	top: 65%;
+	bottom: 25%;
 }
 div#box3{
 	top: 85%;
