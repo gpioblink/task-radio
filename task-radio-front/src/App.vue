@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="home">
     <h1 id=title>たすくらぢお</h1>
-    <div id="remain1">全体の残り時間: <br>{{remainTime}}</div>
-    <div id="remain2">次の工程までの残り時間: <br>{{partRemainTime}}</div>
+    <div id="remain1">全体の残り時間 <br><p id=remaintime>{{remainTime}}</p></div>
+    <div id="remain2">次の工程までの残り時間 <br><p id=remaintime>{{partRemainTime}}</p></div>
     <div id="input">
       <p class=wasabi>
 				<div class=index id=index1>調理時間</div><div class=index id=box1><input class=m @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeMin"><p class=minute>分</p><input class=s @input="validate" type="tel" maxlength="2" pattern="^[0-9]+$" v-model="prepareTimeSec"><p class=second>秒</p></div>
@@ -267,13 +267,14 @@ div.buttonn{
 	font-family: 'sh', Helvetica, Arial, sans-serif;
 }
 div#index1{
+		position: absolute;
 	background: rgb(200, 200, 80);
 	top: 35%;
 	bottom: 55%;
 	right:50%;
 	border-radius: 5vh 0% 0% 5vh;
-	font-size:4vh;
-	padding:2%;
+	font-size:4vw;
+	padding:0%;
 }
 div#remain1{
 	position: absolute;
@@ -322,6 +323,7 @@ input{
 	width: 20%;
 	border-style:none;
 	border-radius: 5vh;
+	transition: background 0.3s linear 0;
 }
 input:hover{
 	background: orange;
@@ -348,6 +350,9 @@ p.second{
 	top: -100%;
 	left:73%;
 	right: 10%;
+}
+p#remaintime{
+	font-size:5vh;
 }
 div#box1{
 	top: 45%;
