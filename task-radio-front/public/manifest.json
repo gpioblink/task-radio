@@ -1,6 +1,6 @@
 {
   "name": "task-radio-front",
-  "short_name": "task-radio-front",
+  "short_name": "task-radio",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",

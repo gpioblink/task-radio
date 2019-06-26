@@ -1,0 +1,81 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:8.11.0 # nodeのバージョンは開発環境に合わせる
+
+    working_directory: ~/repo # 作業フォルダ
+
+    steps:
+      - checkout # プロジェクトに追加したGitHubリポジトリをworking_directoryにcloneしてcheckout
+
+      # キャッシュがある場合はキャッシュから依存関係を復元
+      - restore_cache:
+          # 復元するキャッシュのkey
+          keys:
+            - v1-dependencies-{{ checksum "task-radio-front/yarn.lock" }}
+            - v1-dependencies-
+
+      # 依存関係のインストール
+      - run:
+          name: Install dependencies # CircleCI上で表示される処理名(任意)
+          command: yarn install # 処理コマンド
+          working_directory: task-radio-front/
+
+      # Firebase-toolsのインストール
+      - run:
+          name: Install Firebase-tools
+          command: yarn add --dev firebase-tools
+          working_directory: task-radio-front/
+
+      # - run:
+      #     name: Install zait
+      #     command: yarn add --dev now
+      #     working_directory: task-radio-front/
+
+      # ビルド
+      - run:
+          name: Build
+          command: yarn build
+          working_directory: task-radio-front/
+
+      # ビルドの確認
+      - run:
+          name: Check dist
+          command: ls -la dist
+          working_directory: task-radio-front/
+
+      # キャッシュの保存
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "task-radio-front/yarn.lock" }}
+          working_directory: task-radio-front/
+
+      # - run:
+      #     name: Echo branch
+      #     command: echo $CIRCLE_BRANCH
+      #     working_directory: task-radio-front/
+
+      # # ユニットテスト
+      # - run:
+      #     name: UnitTest
+      #     command: yarn run test:unit
+      #     working_directory: task-radio-front/
+
+    # # デプロイファイルの移動
+    #   - run:
+    #       name: Move Deploy Files
+    #       command: mv dist dist_tmp && mkdir -p "dist/$CIRCLE_BRANCH" && mv dist_tmp/* dist/$CIRCLE_BRANCH
+    #       working_directory: task-radio-front/
+
+      # - run:
+      #     name: list branch
+      #     command: ls -la dist/$CIRCLE_BRANCH
+      #     working_directory: task-radio-front/
+
+    # Firebaseにデプロイ
+      - run: 
+          name: Deploy to Firebase hosting
+          command: yarn run firebase deploy --project "$FIREBASE_PROJECT_ID" --token "$FIREBASE_DEPLOY_TOKEN"
+          working_directory: task-radio-front/
